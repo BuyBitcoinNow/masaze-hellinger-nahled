@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tři návrhy designu — web Jarmila Hellingera</title>
+<style>
+  :root { --bg: #f4f4f1; --ink: #171a1c; --muted: #5b6368; --line: rgb(23 26 28 / .14); --card: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { width: min(100% - 2.5rem, 78rem); margin-inline: auto; padding-block: clamp(2rem, 5vw, 4rem); }
+  h1 { margin: 0 0 .5rem; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.1; letter-spacing: -.02em; }
+  h2 { margin: 0 0 .25rem; font-size: 1.5rem; letter-spacing: -.01em; }
+  h3 { margin: 1rem 0 .25rem; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  p { margin: 0 0 .6rem; }
+  .lead { max-width: 46rem; color: var(--muted); font-size: 1.1rem; }
+  .grid { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
+  @media (min-width: 62rem) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 1rem; overflow: hidden; }
+  .shot { position: relative; height: 15rem; overflow: hidden; border-bottom: 1px solid var(--line); background: #ddd; }
+  .shot iframe { position: absolute; top: 0; left: 0; width: 1360px; height: 850px; border: 0; transform: scale(.3); transform-origin: 0 0; pointer-events: none; }
+  @media (min-width: 62rem) { .shot iframe { transform: scale(.295); } }
+  .card__body { padding: 1.25rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  .card__body p { color: var(--muted); font-size: .95rem; }
+  .card a.open { margin-top: auto; align-self: start; padding: .7rem 1.1rem; border-radius: 99rem; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; }
+  .steps { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--line); max-width: 52rem; }
+  .steps ol { margin: 1rem 0 0; padding-left: 1.3rem; }
+  .steps li { margin-bottom: .5rem; }
+  .steps li b { font-weight: 650; }
+  small { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Tři návrhy designu</h1>
+  <p class="lead">Tři různé podoby úvodní stránky se stejným obsahem. Texty jsou ve všech třech doslova Jarmilovy; liší se jen vzhled. Každý návrh vychází z jiné reference a z každé je řečeno, co si bere a co ne.</p>
+
+  <div class="grid">
+    <article class="card">
+      <div class="shot"><iframe src="a-kronika.html" title="Náhled návrhu A" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="card__body">
+        <h2>A — Kronika</h2>
+        <p>Klidná, čtenářská. Hlavní roli mají texty a citáty, vlevo běží názvy oddílů jako v knize.</p>
+        <h3>Reference</h3>
+        <p>Aesop. Beru: zdrženlivou paletu, malé popisky, text jako hlavní produkt. Neberu: celoplošné video a béžovou.</p>
+        <h3>Barvy a písmo</h3>
+        <p>Smrková zeleň, světlý šedozelený papír, šafránová z původního webu. Instrument Serif + Hanken Grotesk.</p>
+        <a class="open" href="a-kronika.html">Otevřít návrh A</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="shot"><iframe src="b-stezka.html" title="Náhled návrhu B" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="card__body">
+        <h2>B — Světlá stezka</h2>
+        <p>Tichá. Tao je cesta, proto celou stránkou vede jedna čára a oddíly jsou zastávky vlevo a vpravo od ní. Portrét je v tušovém kruhu.</p>
+        <h3>Reference</h3>
+        <p>Aman. Beru: velké okraje, ticho, drobnou značku s roztaženými písmeny. Neberu: luxusní tón a všechno na střed.</p>
+        <h3>Barvy a písmo</h3>
+        <p>Mlžná šeď, inkoustová čerň, nefritová zeleň. Cormorant Garamond + Mulish.</p>
+        <a class="open" href="b-stezka.html">Otevřít návrh B</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="shot"><iframe src="c-toz.html" title="Náhled návrhu C" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="card__body">
+        <h2>C — Tož</h2>
+        <p>Hravá. Původní oranžová zůstává a je jí plná stránka; obří písmo, běžící pás s aforismy, smajlíky a „Úplně Speciální masáže… tož“.</p>
+        <h3>Reference</h3>
+        <p>Oatly. Beru: obrovský nadpis jako obraz, orámovanou stránku, humor v popředí. Neberu: rastrové vzory a chaos.</p>
+        <h3>Barvy a písmo</h3>
+        <p>Oranžová starého webu, černá, bílá. Big Shoulders Display + Onest.</p>
+        <a class="open" href="c-toz.html">Otevřít návrh C</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="steps">
+    <h2>Postup převzatý z videí</h2>
+    <p><small>Složený z poznámek k 24 videím o tvorbě webů s Claude; u části videí byly přečteny jen pasáže o designu.</small></p>
+    <ol>
+      <li><b>Zadání a pravidla proti „AI vzhledu“:</b> žádné fialovo-modré přechody, žádný přechodový text, žádné emoji ikony, ručně vybraná písma, málo textu na obrazovku.</li>
+      <li><b>Podklady značky do projektu:</b> skutečné fotky, jeho oranžová, jeho texty; žádné zástupné obrázky.</li>
+      <li><b>Konkrétní reference:</b> ke každému návrhu jeden vzorový web a u něj „tohle vzít, tohle ne“. Z referencí se berou principy, ne kód ani obrázky.</li>
+      <li><b>Nejdřív systém:</b> barvy, písma a rozvržení jsou zapsané nahoře v souboru, teprve pak stránka.</li>
+      <li><b>Tři varianty se stejným obsahem:</b> liší se jen design, takže se dají poctivě porovnat.</li>
+      <li><b>Hero jako první:</b> hlavička určí styl, zbytek oddílů se staví podle ní.</li>
+      <li><b>Pohyb řečený výslovně:</b> A jen usazení nadpisu, B kreslení kruhu a čára rostoucí se scrollem, C běžící pás.</li>
+      <li><b>Screenshotová smyčka:</b> vykreslit, vyfotit, opravit; dvakrát, na počítači i na mobilu.</li>
+    </ol>
+  </section>
+</div>
+</body>
+</html>

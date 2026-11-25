@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Návrh B — Světlá stezka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Mulish:wght@400;500;700&amp;display=swap">
+<style>
+/* Návrh B „Světlá stezka“: Tao je cesta, proto celou stránkou vede jedna tenká čára a oddíly
+   jsou zastávky střídavě vlevo a vpravo od ní. Hodně ticha, mlžná šeď a nefritová zeleň. */
+:root {
+  --mist: #e7ecec; --stone: #d6dedd; --ink: #121b22; --muted: #57656c; --jade: #2a7663; --line: rgb(18 27 34 / .22);
+  --serif: "Cormorant Garamond", Georgia, serif; --sans: "Mulish", system-ui, sans-serif;
+  --gutter: clamp(1.25rem, 5vw, 4rem); --axis: 50%;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--mist); color: var(--ink); font: 400 clamp(1rem, .97rem + .15vw, 1.0625rem)/1.75 var(--sans); -webkit-font-smoothing: antialiased; font-variant-numeric: lining-nums; }
+a { color: inherit; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--jade); outline-offset: 4px; }
+.wrap { width: min(100% - 2 * var(--gutter), 72rem); margin-inline: auto; }
+.label { font: 700 .6875rem/1.4 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--jade); }
+h1, h2, .big { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; }
+
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; padding-block: 1.75rem; }
+.top__mark { font: 500 .8125rem/1 var(--sans); letter-spacing: .5em; text-transform: uppercase; text-decoration: none; }
+.top nav { display: flex; flex-wrap: wrap; gap: .3rem 1.75rem; font-size: .875rem; }
+.top nav a { text-decoration: none; }
+.top nav a:hover { color: var(--jade); }
+
+.hero { display: grid; gap: 3rem; align-items: center; padding-block: clamp(2rem, 6vw, 5rem) clamp(4rem, 9vw, 8rem); }
+@media (min-width: 60rem) { .hero { grid-template-columns: 1fr minmax(0, 26rem); } }
+.hero h1 { font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: 1.02; text-wrap: balance; }
+.hero h1 em { color: var(--jade); }
+.hero__lead { max-width: 27rem; margin-top: 2rem; color: var(--muted); }
+.hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-top: 2.25rem; }
+.btn { display: inline-block; padding: .9rem 1.6rem; border: 1px solid var(--ink); border-radius: 99rem; text-decoration: none; font-weight: 500; transition: background .4s, color .4s; }
+.btn:hover { background: var(--ink); color: var(--mist); }
+.hero__status { max-width: 27rem; margin-top: 2.5rem; font-size: .9rem; color: var(--muted); }
+.enso { position: relative; width: min(100%, 26rem); margin-inline: auto; aspect-ratio: 1; }
+.enso img { position: absolute; inset: 11%; width: 78%; height: 78%; object-fit: cover; object-position: 50% 38%; border-radius: 50%; filter: grayscale(.25); }
+.enso svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.enso circle { fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 284 30; transform: rotate(-70deg); transform-origin: 50% 50%; }
+.seal { position: absolute; right: 2%; bottom: 6%; display: grid; place-content: center; width: 4.4rem; height: 4.4rem; background: var(--jade); color: var(--mist); font: 700 .625rem/1.5 var(--sans); letter-spacing: .22em; text-align: center; text-transform: uppercase; transform: rotate(-5deg); }
+
+/* stezka: osa a zastávky */
+.path { position: relative; padding-block: clamp(2rem, 5vw, 4rem); }
+.path::before { content: ""; position: absolute; top: 0; bottom: 0; left: var(--axis); width: 1px; background: var(--line); }
+.stop { position: relative; display: grid; padding-block: clamp(2.5rem, 6vw, 5rem); }
+.stop::before { content: ""; position: absolute; top: clamp(3.1rem, 6.6vw, 5.6rem); left: var(--axis); width: .7rem; height: .7rem; margin-left: -.35rem; border-radius: 50%; background: var(--jade); box-shadow: 0 0 0 .4rem var(--mist); }
+.stop > div { width: min(100%, 30rem); }
+.stop h2 { margin: .9rem 0 1.25rem; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; text-wrap: balance; }
+.stop p { color: var(--muted); }
+.stop p + p { margin-top: 1em; }
+@media (min-width: 60rem) {
+  .stop > div { justify-self: start; width: min(30rem, calc(50% - 3.5rem)); }
+  .stop:nth-child(even) > div { justify-self: end; }
+}
+@media (max-width: 59.99rem) { :root { --axis: .35rem; } .path { padding-left: 0; } .stop > div { margin-left: 2rem; width: auto; } }
+
+.verse li { padding-block: 1.1rem; border-top: 1px solid var(--line); }
+.verse li:first-child { border-top: 0; }
+.verse h3 { font: 500 1.6rem/1.15 var(--serif); margin-bottom: .35rem; }
+.big { font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.1; font-style: italic; color: var(--ink) !important; text-wrap: balance; }
+.big span { color: var(--jade); font-style: normal; }
+.flow { margin-top: 1rem; font: 400 clamp(1.3rem, 2vw, 1.6rem)/1.5 var(--serif); color: var(--ink); }
+.flow a { text-decoration: none; white-space: nowrap; }
+.flow a:hover { color: var(--jade); }
+.flow li { display: inline; }
+.flow li + li::before { content: " · "; color: var(--jade); }
+.rhythm li { display: grid; grid-template-columns: 9.5rem 1fr; gap: .2rem 1.25rem; padding-block: 1.1rem; border-top: 1px solid var(--line); }
+.rhythm b { font: 500 1.55rem/1.1 var(--serif); }
+.rhythm i { grid-column: 2; font-style: normal; font-weight: 700; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--jade); }
+.rhythm p { grid-column: 2; }
+@media (max-width: 30rem) { .rhythm li { grid-template-columns: 1fr; } .rhythm i, .rhythm p { grid-column: 1; } }
+.fees li { padding-block: 1.2rem; border-top: 1px solid var(--line); }
+.fees h3 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem 1.5rem; font: 500 1.6rem/1.15 var(--serif); }
+.fees h3 b { font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fees small { display: block; font-size: .875rem; color: var(--muted); }
+.fees p { margin-top: .5rem; font-size: .92rem; }
+.reads a { display: block; padding-block: 1rem; border-top: 1px solid var(--line); text-decoration: none; }
+.reads h3 { font: 500 1.5rem/1.15 var(--serif); transition: color .3s; }
+.reads a:hover h3 { color: var(--jade); }
+.reads small { font-size: .8rem; letter-spacing: .08em; color: var(--muted); }
+
+.end { margin-top: clamp(2rem, 5vw, 4rem); padding-block: clamp(4rem, 9vw, 7rem); background: var(--ink); color: var(--mist); text-align: center; }
+.end .label { color: #7fc7b4; }
+.end__tel { display: block; margin: 1rem 0 2rem; font: 400 clamp(3rem, 11vw, 8rem)/1 var(--serif); text-decoration: none; }
+.end__tel:hover { color: #7fc7b4; }
+.end p { max-width: 34rem; margin-inline: auto; color: rgb(231 236 236 / .78); }
+.end p + p { margin-top: .8rem; }
+.end__places { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 4rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgb(231 236 236 / .2); }
+.end__places b { display: block; font: 500 1.5rem/1.2 var(--serif); color: var(--mist); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .enso circle { animation: brush 2.6s cubic-bezier(.3, .6, .2, 1) both; }
+  @keyframes brush { from { stroke-dasharray: 0 314; } }
+  @supports (animation-timeline: scroll()) {
+    .path::after { content: ""; position: absolute; top: 0; bottom: 0; left: var(--axis); width: 1px; background: var(--jade); transform-origin: 50% 0; animation: walk linear both; animation-timeline: view(); animation-range: entry 20% exit 60%; }
+    @keyframes walk { from { transform: scaleY(0); } }
+  }
+}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="top__mark" href="#">Hell tao</a>
+  <nav aria-label="Hlavní navigace">
+    <a href="#masaze">Masáže, terapie</a><a href="#cenik">Ceník</a><a href="#o-mne">Něco o mně</a><a href="#o-masazich">O masážích</a><a href="tel:+420608883236">608 883 236</a>
+  </nav>
+</header>
+
+<main>
+<section class="wrap hero">
+  <div>
+    <p class="label">Jarmil Hellinger · tao masáže a terapie</p>
+    <h1 style="margin-top:1.5rem">Zdraví není jen nepřítomnost bolesti, ale mít <em>radost ze života</em></h1>
+    <p class="hero__lead">O zdraví a masáže se profesionálně zajímám již přes 20 let. Cílem mé činnosti je, aby člověk byl ZDRAVÝ.</p>
+    <p class="hero__cta"><a class="btn" href="tel:+420608883236">Zavolat 608 883 236</a><a href="#cenik">Ceník</a></p>
+    <p class="hero__status">Už nepřijímám nové klienty, ale občas udělám výjimku. :-)</p>
+  </div>
+  <figure class="enso">
+    <img src="../assets/img/portrait.jpg" alt="Jarmil Hellinger" width="346" height="565">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48"/></svg>
+    <span class="seal" aria-hidden="true">Hell<br>tao</span>
+  </figure>
+</section>
+
+<div class="wrap path">
+  <section class="stop">
+    <div>
+      <p class="label">Proč chodit na masáž</p>
+      <h2>Pravidelná masáž je nejpříjemnější a nejjednodušší cesta, jak o sebe pečovat a udržovat se ve stálém a dlouhodobém zdraví.</h2>
+      <ol class="verse">
+        <li><h3>Zpomalení stárnutí, bolestí</h3><p>Dotek, pohlazení, masáž jsou velmi důležitou součástí života. Vědci provedli výzkum, při kterém zjistili, že lidé, kteří mají dostatek těchto stimulů, žijí mnohem déle a s menšími zdravotními problémy.</p></li><li><h3>Prevence nemocí</h3><p>Málokdo si uvědomuje, že kůže je náš největší orgán a chrání organismus před choroboplodnými mikroorganismy. Proto je důležité, aby byla kůže zdravá, správně promaštěná a pružná. Navíc přes kůži odchází nemalé množství toxinů.</p></li><li><h3>Psychické uvolnění</h3><p>Úleva, dodá novou sílu a radost do života. Jedině v tomto stavu se tělo regeneruje (opravuje). Někdy ani nevnímáme, že jsme v napětí. Pak se nedokážeme uvolnit ani během spánku a nedokážeme si tedy ani odpočinout.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="stop" id="masaze">
+    <div>
+      <p class="label">Masáže, terapie</p>
+      <p class="big" style="margin-top:.9rem">Není důležité na jakou masáž jdeme, ale kdo mne bude masírovat. <span>To je Tao.</span></p>
+      <p style="margin-top:1.5rem">Existuje nespočet různých masáží a technik. Všechny mají ale společný cíl. Pomoci od bolesti a posílit zdraví člověka. Důležitý je čas, který se Vám budu věnovat.</p>
+      <ol class="verse" style="margin-top:1.5rem">
+        <li><h3>Diagnostika</h3><p>Diagnostikou zjistím, kde v těle je problém a jeho hloubku.</p></li><li><h3>Terapie</h3><p>Potom můžu stanovit a vykonat vhodné terapie a masáže.</p></li><li><h3>Doporučení</h3><p>Doporučit vhodnou výživu, potravinové doplňky, byliny, cvičení, které jsou potřeba pro daný problém u konkrétního klienta.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="stop">
+    <div>
+      <p class="label">Při bolestech a zdravotních potížích</p>
+      <h2>Každá správná masáž má léčebný účinek.</h2>
+      <p>Využívám znalostí tao medicíny (čínská, japonská, korejská, vietnamská, thajská medicína), akupunktury, aromaterapie a fytoterapie.</p>
+      <ul class="flow"><li><a href="../terapie.html#akupunktura">Akupunktura</a></li><li><a href="../terapie.html#reflexni-terapie">Reflexní terapie a masáž chodidel</a></li><li><a href="../terapie.html#shiatsu">Shiatsu — Akupresura</a></li><li><a href="../terapie.html#banky">Baňky</a></li><li><a href="../terapie.html#lymfodrenaze">Lymfodrenáže</a></li><li><a href="../terapie.html#thajske">Thajské masáže — Fyzioterapie</a></li><li><a href="../terapie.html#sportovni">Sportovní masáže</a></li><li><a href="../terapie.html#olejove">Olejové, aroma masáže</a></li><li><a href="../terapie.html#reiki">Rei-ki</a></li></ul>
+      <p class="label" style="margin-top:2rem">Relaxační a energetické masáže</p>
+      <ul class="flow"><li><a href="../terapie.html#klasicka">Klasická Relaxační masáž</a></li><li><a href="../terapie.html#aroma">Aroma masáž</a></li><li><a href="../terapie.html#cakrova">Čakrová masáž</a></li><li><a href="../terapie.html#prana-sthana">Prana Sthana</a></li><li><a href="../terapie.html#lymfaticka">Lymfatická masáž</a></li><li><a href="../terapie.html#medova">Medové</a></li><li><a href="../terapie.html#lavove-kameny">Lávové kameny</a></li><li><a href="../terapie.html#samanska">Šamanská masáž</a></li></ul>
+    </div>
+  </section>
+
+  <section class="stop">
+    <div>
+      <p class="label">Jak často na masáž</p>
+      <h2>Jedna masáž uleví. Ale problémy neodstraní!</h2>
+      <p>Proto pokud se chceme zlepšovat musíme postupovat jako po schodech.</p>
+      <ol class="rhythm" style="margin-top:1.5rem">
+        <li><b>1–2× týdně</b><i>odstranění bolestí</i><p>Chceme se zbavit bolestí co nejdříve. Nikdo nechce mít bolesti! Ale nemůžeme dělat terapie každý den. Tělo musí mít čas na regeneraci, opravy.</p></li><li><b>1× za 2 týdny</b><i>zlepšování zdravotního stavu</i><p>Můžeme to přirovnat ke sportovnímu tréninku. Pokud dojdete jednou za čas, neposílíte a nezlepšíte se.</p></li><li><b>1× za měsíc</b><i>udržování stálého zdraví</i><p>Prevence. Údržba. Servis. Je to zdravotní minimum! Věnovat sám sobě, svému zdraví 12 hodin ZA ROK!</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="stop" id="cenik">
+    <div>
+      <p class="label">Ceník platný od 1. 6. 2026</p>
+      <h2>Důležitý je čas, který se Vám budu věnovat.</h2>
+      <ul class="fees">
+        <li><h3><span>Tao terapie<small>pravidelná péče — údržba zdraví</small></span><b>1 300 Kč / 60 min.</b></h3></li><li><h3><span>Tao terapie<small>pokud přijmu nového, bolavého klienta</small></span><b>1 500 Kč / 60 min.</b></h3><p>4 terapie většinou stačí k odstranění potíží, bolestí.</p></li><li><h3><span>Tao terapie VIP akutní<small>doba trvání terapie není určena</small></span><b>5 000 Kč</b></h3><p>Pokud se chcete dostat na terapii za každou cenu. A přednostně. Pravděpodobně o víkendu. (tato cena je cena mého zdraví)</p></li>
+      </ul>
+      <p style="margin-top:1.25rem;font-size:.9rem">Storno poplatky mám stejné jako jsou v ostatních službách. Tedy plná refundace při zrušení termínu 24 hod. před objednaným termínem.</p>
+    </div>
+  </section>
+
+  <section class="stop" id="o-mne">
+    <div>
+      <p class="label">Něco o mně</p>
+      <p class="big" style="margin-top:.9rem">„Masáž a léčba musí být příjemnější, než nemoc sama.“</p>
+      <p style="margin-top:1.5rem">O zdraví a masáže se profesionálně zajímám již přes 20 let. Na plný úvazek. Ale pomáhali jsme si, masírovali se s bratry už od dětství.</p>
+      <p>Prevence je pro mě na 1. místě. Malé těžkosti se napravují lehce, rychleji, lépe, levněji a příjemněji, než nahromaděné, dlouho odkládané problémy.</p>
+      <p>Tao je cesta. Cesta jednoduchá, tedy měla by být srozumitelná a přístupná, jasná pro každého, ne jen pro učence, doktory.</p>
+      <p>Tao je především láska, ochota pomáhat, neubližovat (nikomu ani sobě) a přijímat to co je dané.</p>
+      <p><a href="../o-mne.html">Něco o mně</a></p>
+    </div>
+  </section>
+
+  <section class="stop">
+    <div>
+      <p class="label">Úsměv léčí</p>
+      <p class="big" style="margin-top:.9rem">„To chce klid a nohy v teple.“</p>
+      <p style="margin-top:1rem">Dobrý voják Švejk</p>
+    </div>
+  </section>
+
+  <section class="stop" id="o-masazich">
+    <div>
+      <p class="label">O masážích</p>
+      <div class="reads" style="margin-top:1rem">
+        <a href="../clanky/proc-jsou-dulezite-masaze.html"><h3>Proč jsou důležité masáže?</h3><small>3 min čtení</small></a><a href="../clanky/proc-chodit-na-masaz.html"><h3>Proč chodit na masáž</h3><small>2 min čtení</small></a><a href="../clanky/jak-casto-na-masaz.html"><h3>Jak často na masáž?</h3><small>3 min čtení</small></a><a href="../clanky/prevence.html"><h3>Prevence — co to je?</h3><small>1 min čtení</small></a><a href="../clanky/masaz-nebo-cvicit.html"><h3>Masáž, nebo cvičit?</h3><small>4 min čtení</small></a><a href="../clanky/jak-poznat-kvalitni-masaz.html"><h3>Jak poznat kvalitní masáž</h3><small>2 min čtení</small></a><a href="../clanky/moderni-a-tao-medicina.html"><h3>Srovnání moderní a tao medicíny</h3><small>7 min čtení</small></a><a href="../clanky/desatero-masera.html"><h3>Desatero maséra</h3><small>3 min čtení</small></a>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer class="end">
+  <div class="wrap">
+    <p class="label">Objednávky</p>
+    <a class="end__tel" href="tel:+420608883236">608 883 236</a>
+    <p>Počítejte prosím minimálně s 14denní objednací lhůtou. Pracuji v dopoledních i odpoledních hodinách. Je třeba se předem telefonicky objednat.</p>
+    <p>Pokud nezvedám telefon, pracuji. Zavolám Vám zpět hned, jak to bude možné. Můžete poslat i sms. Děkuji.</p>
+    <div class="end__places">
+      <p><b>Břeclav</b>Čs. armády 289</p><p><b>Mikulov</b>Komenského 2</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
